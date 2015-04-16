@@ -9,6 +9,43 @@ namespace UC121902_TNARX_A {
   uint8_t DP = 4;
   uint8_t DQ = 2;
   uint8_t DR = 1;
+  
+  typedef struct Segment {
+    uint8_t T;
+    uint8_t TL;
+    uint8_t TR;
+    uint8_t M;
+    uint8_t BL;
+    uint8_t BR;
+    uint8_t B;
+    /*
+
+    T     -               
+    TL   | | TR   
+    M     -          
+    BL   | | BR
+    B     -   
+
+    x[2]  -               
+    x[0] | | x[4]   
+    x[3]  -          
+    x[1] | | x[7]
+    x[5]  -  
+            */
+
+  } Segment;
+  
+  uint8_t segmentToByte(Segment segment) {
+    uint8_t byte = 0;
+    if (segment.T ) byte |= 1 << 2;
+    if (segment.TL) byte |= 1 << 0;
+    if (segment.TR) byte |= 1 << 4;
+    if (segment.M ) byte |= 1 << 3;
+    if (segment.BL) byte |= 1 << 1;
+    if (segment.BR) byte |= 1 << 7;
+    if (segment.B ) byte |= 1 << 5;
+    return byte;
+  }
 
   class State {
     private:
@@ -45,29 +82,31 @@ namespace UC121902_TNARX_A {
             g[3] = ?         n[3] = ?
             g[4] = CHAN      n[4] = BATTERY_SECOND_HALF
             g[5] = MEM       n[5] = BATTERY_FIRST_HALF
-            g[6] = /CLOCK    n[6] = PROG
-            g[7] = CLOCK     n[7] = SEC
+            g[6] = /BELL    n[6] = PROG
+            g[7] = BELL     n[7] = SEC
       */
       uint8_t m_data[14]; /* 2 * 56bits */
       boolean writeOnChange;
+      boolean started;
 
       State(int CE_pin = 2, int CK_pin = 3, int DI_pin = 4) {
         m_CE_pin = CE_pin;
         m_CK_pin = CK_pin;
         m_DI_pin = DI_pin;
-        for (int i = 0; i < 14; i++) {
-          m_data[i] = 0;
-        }
+        started = false;
+        writeOnChange = true;
+        erase();
       }
       
       void begin() {
         pinMode(m_CE_pin, OUTPUT);
         pinMode(m_CK_pin, OUTPUT);
         pinMode(m_DI_pin, OUTPUT);
+        started = true;
       }
       
       void end() {
-        
+        started = false;
       }
 
       void write_bits(uint8_t data[7]) {
@@ -94,6 +133,7 @@ namespace UC121902_TNARX_A {
       }
 
       void flush() {
+        if (!started) return;
         uint8_t data1[7];
         uint8_t data2[7];
         for (int i = 0; i < 7; i++) data1[i] = m_data[i];
@@ -119,6 +159,23 @@ namespace UC121902_TNARX_A {
         }
       }
       
+      void erase() {
+        for (int i = 0; i < 14; i++) {
+          m_data[i] = 0;
+        }
+      }
+      void eraseNumbers() {
+        for (int i = 0; i < 6; i++) {
+          m_data[i] = m_data[i + 7] = 0;
+        }
+      }
+      
+      void set(const Segment segment, int position) {
+        if (position < 0) position = 12 + position;
+        if (position < 0 || position >= 12) return;
+        if (position >= 6) position ++;
+        m_data[12 - position] = segmentToByte(segment);
+      }
   };
 
   class Switch {
@@ -168,20 +225,28 @@ namespace UC121902_TNARX_A {
       /*
             g[4] = CHAN      n[4] = BATTERY_SECOND_HALF
             g[5] = MEM       n[5] = BATTERY_FIRST_HALF
-            g[6] = /CLOCK    n[6] = PROG
-            g[7] = CLOCK     n[7] = SEC
+            g[6] = /BELL    n[6] = PROG
+            g[7] = BELL     n[7] = SEC
       */
-      Switch CHAN;
-      Switch MEM;
-      Switch PROG;
-      Switch SEC;
       
     public: 
+      Switch CHAN;
+      Switch MEM;
+      Switch BELL_LINE;
+      Switch BELL;
+      Switch BATTERY_SECOND_HALF;
+      Switch BATTERY_FIRST_HALF;
+      Switch PROG;
+      Switch SEC;
       
       Display(int CE_pin = 2, int CK_pin = 3, int DI_pin = 4) {
         state = new State(CE_pin, CK_pin, DI_pin);
         CHAN = Switch(state, 6, 4);
         MEM = Switch(state, 6, 5);
+        BELL_LINE = Switch(state, 6, 6);
+        BELL = Switch(state, 6, 7);
+        BATTERY_SECOND_HALF = Switch(state, 13, 4);
+        BATTERY_FIRST_HALF = Switch(state, 13, 5);
         PROG = Switch(state, 13, 6);
         SEC = Switch(state, 13, 7);
       }
@@ -207,7 +272,36 @@ namespace UC121902_TNARX_A {
       void flush() {
         state->flush();
       }
+      void turnOff() {
+        eraseAll();
+      }      
+      void eraseAll() {
+        state->erase();
+        state->changed();
+      }
+      void eraseNumbers() {
+        state->eraseNumbers();
+        state->changed();
+      }
+      void eraseText() {
+        eraseNumbers();
+      }
+      void say(const String string) {
+        eraseText();
+        for (int i = 0; (i < string.length() && i < 12); i++) {
+          put(string[i], i);
+        }
+        state->changed();
+      }
       
+      void put(char character, int position) {
+        Segment segment;
+        switch (character) {
+          case ' ' : segment = {0,0,0,0,0,0,0}; break;
+          default  : segment = {1,0,0,0,0,0,0}; break;
+        }
+        state->set(segment, position);
+      }
   };
 };
 

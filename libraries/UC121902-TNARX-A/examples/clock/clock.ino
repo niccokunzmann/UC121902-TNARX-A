@@ -1,5 +1,7 @@
 #include "UC121902-TNARX-A.h"
 
+UC121902_TNARX_A::Display display;
+
 void setup() {
   // put your setup code here, to run once:
 
