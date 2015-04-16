@@ -423,7 +423,11 @@ namespace UC121902_TNARX_A {
                                  _,
                                 1,1,
                                  1}; break;
-          case 'i' :
+          case 'i' : segment = { _,
+                                _,_,
+                                 _,
+                                1,_,
+                                 _}; break;
           case 'I' :
           case 'l' : segment = { _,
                                 1,_,
