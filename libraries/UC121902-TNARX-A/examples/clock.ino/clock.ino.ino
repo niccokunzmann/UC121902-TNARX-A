@@ -7,6 +7,7 @@ void setup() {
   display.begin();
   int x = 100;
   display.eraseAll();
+  display.print(1234567890L);
   delay(x);
   display.CHAN.turnOn();
   delay(x);
@@ -21,15 +22,16 @@ void setup() {
   display.BELL_LINE.turnOn();
   delay(x);
   display.BATTERY_FIRST_HALF.turnOn();
-  delay(500);
+  delay(x);
   display.BATTERY_SECOND_HALF.turnOn();
   for(int i = 0; i < 3; i++) {
     delay(300);
     display.eraseNumbers();
     delay(300);
-    display.say("Hello !");
+    display.print("Hello !");
   }
-  
+  delay(x);
+  display.print("a:", 55);
 }
 
 void loop() {

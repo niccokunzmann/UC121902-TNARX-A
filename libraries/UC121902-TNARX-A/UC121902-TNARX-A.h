@@ -274,34 +274,280 @@ namespace UC121902_TNARX_A {
       }
       void turnOff() {
         eraseAll();
-      }      
+      }
       void eraseAll() {
         state->erase();
         state->changed();
       }
+      
       void eraseNumbers() {
         state->eraseNumbers();
         state->changed();
       }
+      
       void eraseText() {
         eraseNumbers();
       }
-      void say(const String string) {
+      
+      void print(const String string) {
         eraseText();
-        for (int i = 0; (i < string.length() && i < 12); i++) {
-          put(string[i], i);
-        }
+        put(string);
         state->changed();
       }
       
+      void print(int32_t number) {
+        eraseText();
+        put(number);
+        state->changed();
+      }
+      
+      void print(char character, int position) {
+        put(character, position);
+        state->changed();
+      }
+      
+      void print(const String string, int32_t number) {
+        eraseText();
+        put(string);
+        put(number);
+        state->changed();
+      }
+       
+      void put(const String string) {
+        for (int i = 0; (i < string.length() && i < 12); i++) {
+          put(string[i], i);
+        }      
+      }
+      
+      void put(int32_t number) {
+        boolean sign = number < 0;
+        number = abs(number);
+        int position = 11;
+        // -2,147,483,648 has 10 digits
+        do {
+          put('0' + number % 10, position);
+          number /= 10;
+          position --;
+        } while (number);
+        put(sign ? '-' : ' ', position);
+      }
+    
       void put(char character, int position) {
         Segment segment;
+        uint8_t _ = 0;
         switch (character) {
-          case ' ' : segment = {0,0,0,0,0,0,0}; break;
-          default  : segment = {1,0,0,0,0,0,0}; break;
+          case ' ' : segment = { _,
+                                _,_,
+                                 _,
+                                _,_,
+                                 _}; break;
+          case 'B' :
+          case 'b' : segment = { _,
+                                1,_,
+                                 1,
+                                1,1,
+                                 1}; break;
+          case 'c' : segment = { _,
+                                _,_,
+                                 1,
+                                1,_,
+                                 1}; break;
+          case 'D' :
+          case 'd' : segment = { _,
+                                _,1,
+                                 1,
+                                1,1,
+                                 1}; break;
+          case 'e' :
+          case 'E' : segment = { 1,
+                                1,_,
+                                 1,
+                                1,_,
+                                 1}; break;
+          case 'f' :
+          case 'F' : segment = { 1,
+                                1,_,
+                                 1,
+                                1,_,
+                                 _}; break;
+          case 'p' :
+          case 'P' : segment = { 1,
+                                1,1,
+                                 1,
+                                1,_,
+                                 _}; break;
+          case 'r' : segment = { _,
+                                _,_,
+                                 1,
+                                1,_,
+                                 _}; break;
+          case 'R' : segment = { 1,
+                                1,1,
+                                 1,
+                                1,1,
+                                 _}; break;
+          case 't' : segment = { _,
+                                _,1,
+                                 1,
+                                _,1,
+                                 _}; break;
+          case 'T' : segment = { 1,
+                                1,_,
+                                 _,
+                                1,_,
+                                 _}; break;
+          case 'v' :
+          case 'u' : segment = { _,
+                                _,_,
+                                 _,
+                                1,1,
+                                 1}; break;
+          case 'V' :
+          case 'U' : segment = { _,
+                                1,1,
+                                 _,
+                                1,1,
+                                 1}; break;
+          case 'g' :
+          case 'G' : segment = { 1,
+                                1,_,
+                                 _,
+                                1,1,
+                                 1}; break;
+          case 'i' :
+          case 'I' :
+          case 'l' : segment = { _,
+                                1,_,
+                                 _,
+                                1,_,
+                                 _}; break;
+          case 'L' : segment = { _,
+                                1,_,
+                                 _,
+                                1,_,
+                                 1}; break;
+          case 'a' :
+          case 'A' : segment = { 1,
+                                1,1,
+                                 1,
+                                1,1,
+                                 _}; break;
+          case 'x' :
+          case 'X' :
+          case 'H' : segment = { _,
+                                1,1,
+                                 1,
+                                1,1,
+                                 _}; break;
+          case 'o' : segment = { _,
+                                _,_,
+                                 1,
+                                1,1,
+                                 1}; break;
+          case 'O' :
+          case '0' : segment = { 1,
+                                1,1,
+                                 _,
+                                1,1,
+                                 1}; break;
+          case '!' :
+          case '1' : segment = { _,
+                                _,1,
+                                 _,
+                                _,1,
+                                 _}; break;
+          case 'z' :
+          case 'Z' :
+          case '2' : segment = { 1,
+                                _,1,
+                                 1,
+                                1,_,
+                                 1}; break;
+          case '3' : segment = { 1,
+                                _,1,
+                                 1,
+                                _,1,
+                                 1}; break;
+          case 'Y' :
+          case 'y' :
+          case '4' : segment = { _,
+                                1,1,
+                                 1,
+                                _,1,
+                                 _}; break;
+          case 'S' : 
+          case 's' :
+          case '5' : segment = { 1,
+                                1,_,
+                                 1,
+                                _,1,
+                                 1}; break;
+          case '6' : segment = { 1,
+                                1,_,
+                                 1,
+                                1,1,
+                                 1}; break;
+          case '7' : segment = { 1,
+                                _,1,
+                                 _,
+                                _,1,
+                                 _}; break;
+          case '8' : segment = { 1,
+                                1,1,
+                                 1,
+                                1,1,
+                                 1}; break;
+          case '9' : segment = { 1,
+                                1,1,
+                                 1,
+                                _,1,
+                                 1}; break;
+          case ')' : segment = { 1,
+                                _,1,
+                                 _,
+                                _,1,
+                                 1}; break;
+          case 'C' :
+          case '(' : segment = { 1,
+                                1,_,
+                                 _,
+                                1,_,
+                                 1}; break;
+          case '-' : segment = { _,
+                                _,_,
+                                 1,
+                                _,_,
+                                 _}; break;
+          case '.' :
+          case ',' :
+          case '_' : segment = { _,
+                                _,_,
+                                 _,
+                                _,_,
+                                 1}; break;
+          case '=' :
+          case ':' : segment = { _,
+                                _,_,
+                                 1,
+                                _,_,
+                                 1}; break;
+          case '\'':
+          case '"' :
+          case '^' : segment = { 1,
+                                _,_,
+                                 _,
+                                _,_,
+                                 _}; break;
+          case '?' : 
+          default  : segment = { 1,
+                                _,1,
+                                 1,
+                                1,_,
+                                 _}; break;
         }
         state->set(segment, position);
       }
+      
   };
 };
 
