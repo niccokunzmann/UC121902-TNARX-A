@@ -3,7 +3,7 @@ UC121902-TNARX-A
 
 ![](Pollin/G120586.JPG)
 
-A Library to control the Samsumg UC121902-TNARX-A LCD module with the Arduino. You can buy it from [Pollin]().
+A Library to control the Samsumg UC121902-TNARX-A LCD module with the Arduino. You can buy it from [Pollin](http://www.pollin.de/shop/dt/MzE0OTc4OTk-/Bauelemente_Bauteile/Aktive_Bauelemente/Displays/LCD_Modul_SAMSUNG_UC121902_TNARX_A.html).
 
 Installation
 ------------
@@ -15,7 +15,7 @@ Connect to Arduino
 
 ![](Pollin/Beschriftet.jpg)
 
-CE, CK and DI can be connected to pins on the Arduino. Default values are CE=2, CK=3, DI=4.
+CE, CK and DI are connected to pins on the Arduino. Default values are CE=2, CK=3, DI=4.
 
 Hello World
 -----------
@@ -46,7 +46,7 @@ Small Handbook
     UC121902_TNARX_A::Display display(CE, CK, DI);
     UC121902_TNARX_A::Display display(); // CE == 2, CK == 3, DI == 4
 
-You can choose one of the lines. 
+You can choose one of the lines. You can rename them to use multiple displays.
 
 ###Printing
 
@@ -84,4 +84,7 @@ Each of them is a switch and has these methods:
     display.BELL.isOff();
     display.BELL.toggle();
 
+License
+-------
 
+MIT License, see the License file. Subfolders (Pollin) may have different licenses.
