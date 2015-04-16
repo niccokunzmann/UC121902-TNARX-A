@@ -145,9 +145,7 @@ namespace UC121902_TNARX_A {
         data2[6] |= DR;
         write_bits(data1);
         delayMicroseconds(4); // t4 at least 4 microseconds
-        digitalWrite(13, HIGH);
         write_bits(data2);
-        digitalWrite(13, LOW);
       }
       
       uint8_t* data() {
