@@ -375,6 +375,12 @@ namespace UC121902_TNARX_A {
                                  1,
                                 1,_,
                                  _}; break;
+          case 'Q' :
+          case 'q' : segment = { 1,
+                                1,1,
+                                 1,
+                                _,1,
+                                 _}; break;
           case 'r' : segment = { _,
                                 _,_,
                                  1,
@@ -526,6 +532,17 @@ namespace UC121902_TNARX_A {
                                  _,
                                 1,_,
                                  1}; break;
+          case '/' : segment = { _,
+                                _,1,
+                                 1,
+                                1,_,
+                                 _}; break;
+          case '\' : segment = { _,
+                                1,_,
+                                 1,
+                                _,1,
+                                 _}; break;
+          case '~' :
           case '-' : segment = { _,
                                 _,_,
                                  1,
