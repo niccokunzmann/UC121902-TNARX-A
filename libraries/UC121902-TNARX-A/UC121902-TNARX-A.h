@@ -103,6 +103,7 @@ namespace UC121902_TNARX_A {
         pinMode(m_CK_pin, OUTPUT);
         pinMode(m_DI_pin, OUTPUT);
         started = true;
+        flush();
       }
       
       void end() {
@@ -387,9 +388,9 @@ namespace UC121902_TNARX_A {
                                 1,1,
                                  _}; break;
           case 't' : segment = { _,
-                                _,1,
+                                1,_,
                                  1,
-                                _,1,
+                                1,_,
                                  _}; break;
           case 'T' : segment = { 1,
                                 1,_,
@@ -402,6 +403,16 @@ namespace UC121902_TNARX_A {
                                  _,
                                 1,1,
                                  1}; break;
+          case 'n' : segment = { _,
+                                _,_,
+                                 1,
+                                1,1,
+                                 _}; break;
+          case 'N' : segment = { 1,
+                                1,1,
+                                 _,
+                                1,1,
+                                 _}; break;
           case 'V' :
           case 'U' : segment = { _,
                                 1,1,

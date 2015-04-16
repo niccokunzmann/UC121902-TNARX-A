@@ -26,7 +26,7 @@ void setup() {
   display.BATTERY_SECOND_HALF.turnOn();
   for(int i = 0; i < 3; i++) {
     delay(300);
-    display.eraseNumbers();
+    display.eraseText();
     delay(300);
     display.print("Hello !");
   }
