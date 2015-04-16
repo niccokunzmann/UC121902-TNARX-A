@@ -9,41 +9,161 @@ namespace UC121902_TNARX_A {
   uint8_t DP = 4;
   uint8_t DQ = 2;
   uint8_t DR = 1;
+
+  const uint8_t segment_lookup_table_size = 128;
+  uint8_t segment_lookup_table[segment_lookup_table_size] = {
+    0b1011100 /* '\x00' */,
+    0b1011100 /* '\x01' */,
+    0b1011100 /* '\x02' */,
+    0b1011100 /* '\x03' */,
+    0b1011100 /* '\x04' */,
+    0b1011100 /* '\x05' */,
+    0b1011100 /* '\x06' */,
+    0b1011100 /* '\x07' */,
+    0b1011100 /* '\x08' */,
+    0b0000000 /*  '\t'  */,
+    0b0000000 /*  '\n'  */,
+    0b1011100 /* '\x0b' */,
+    0b1011100 /* '\x0c' */,
+    0b0000000 /*  '\r'  */,
+    0b1011100 /* '\x0e' */,
+    0b1011100 /* '\x0f' */,
+    0b1011100 /* '\x10' */,
+    0b1011100 /* '\x11' */,
+    0b1011100 /* '\x12' */,
+    0b1011100 /* '\x13' */,
+    0b1011100 /* '\x14' */,
+    0b1011100 /* '\x15' */,
+    0b1011100 /* '\x16' */,
+    0b1011100 /* '\x17' */,
+    0b1011100 /* '\x18' */,
+    0b1011100 /* '\x19' */,
+    0b1011100 /* '\x1a' */,
+    0b1011100 /* '\x1b' */,
+    0b1011100 /* '\x1c' */,
+    0b1011100 /* '\x1d' */,
+    0b1011100 /* '\x1e' */,
+    0b1011100 /* '\x1f' */,
+    0b0000000 /*  ' '   */,
+    0b0010010 /*  '!'   */,
+    0b1000000 /*  '"'   */,
+    0b1011100 /*  '#'   */,
+    0b1011100 /*  '$'   */,
+    0b1001001 /*  '%'   */,
+    0b1011100 /*  '&'   */,
+    0b1000000 /*  "'"   */,
+    0b1100101 /*  '('   */,
+    0b1010011 /*  ')'   */,
+    0b1011100 /*  '*'   */,
+    0b1011100 /*  '+'   */,
+    0b0000001 /*  ','   */,
+    0b0001000 /*  '-'   */,
+    0b0000001 /*  '.'   */,
+    0b0011100 /*  '/'   */,
+    0b1110111 /*  '0'   */,
+    0b0010010 /*  '1'   */,
+    0b1011101 /*  '2'   */,
+    0b1011011 /*  '3'   */,
+    0b0111010 /*  '4'   */,
+    0b1101011 /*  '5'   */,
+    0b1101111 /*  '6'   */,
+    0b1010010 /*  '7'   */,
+    0b1111111 /*  '8'   */,
+    0b1111011 /*  '9'   */,
+    0b0001001 /*  ':'   */,
+    0b0001001 /*  ';'   */,
+    0b1011100 /*  '<'   */,
+    0b0001001 /*  '='   */,
+    0b1011100 /*  '>'   */,
+    0b1011100 /*  '?'   */,
+    0b1011100 /*  '@'   */,
+    0b1111110 /*  'A'   */,
+    0b0101111 /*  'B'   */,
+    0b1100101 /*  'C'   */,
+    0b0011111 /*  'D'   */,
+    0b1101101 /*  'E'   */,
+    0b1101100 /*  'F'   */,
+    0b1100111 /*  'G'   */,
+    0b0111110 /*  'H'   */,
+    0b0100100 /*  'I'   */,
+    0b0000010 /*  'J'   */,
+    0b0101101 /*  'K'   */,
+    0b0100101 /*  'L'   */,
+    0b1110110 /*  'M'   */,
+    0b1110110 /*  'N'   */,
+    0b1110111 /*  'O'   */,
+    0b1111100 /*  'P'   */,
+    0b1111010 /*  'Q'   */,
+    0b1111110 /*  'R'   */,
+    0b1101011 /*  'S'   */,
+    0b1100100 /*  'T'   */,
+    0b0110111 /*  'U'   */,
+    0b0110111 /*  'V'   */,
+    0b0110111 /*  'W'   */,
+    0b0111110 /*  'X'   */,
+    0b0111010 /*  'Y'   */,
+    0b1011101 /*  'Z'   */,
+    0b1100101 /*  '['   */,
+    0b0101010 /*  '\\'  */,
+    0b1100101 /*  ']'   */,
+    0b1000000 /*  '^'   */,
+    0b0000001 /*  '_'   */,
+    0b1000000 /*  '`'   */,
+    0b1111110 /*  'a'   */,
+    0b0101111 /*  'b'   */,
+    0b0001101 /*  'c'   */,
+    0b0011111 /*  'd'   */,
+    0b1101101 /*  'e'   */,
+    0b1101100 /*  'f'   */,
+    0b1100111 /*  'g'   */,
+    0b0101110 /*  'h'   */,
+    0b0000100 /*  'i'   */,
+    0b0000010 /*  'j'   */,
+    0b0101101 /*  'k'   */,
+    0b0100100 /*  'l'   */,
+    0b0001110 /*  'm'   */,
+    0b0001110 /*  'n'   */,
+    0b0001111 /*  'o'   */,
+    0b1111100 /*  'p'   */,
+    0b1111010 /*  'q'   */,
+    0b0001100 /*  'r'   */,
+    0b1101011 /*  's'   */,
+    0b0101100 /*  't'   */,
+    0b0000111 /*  'u'   */,
+    0b0000111 /*  'v'   */,
+    0b0000111 /*  'w'   */,
+    0b0111110 /*  'x'   */,
+    0b0111010 /*  'y'   */,
+    0b1011101 /*  'z'   */,
+    0b1100101 /*  '{'   */,
+    0b0010010 /*  '|'   */,
+    0b1010011 /*  '}'   */,
+    0b0001000 /*  '~'   */,
+    0b1011100 /* '\x7f' */
+  };
   
-  typedef struct Segment {
-    uint8_t T;
-    uint8_t TL;
-    uint8_t TR;
-    uint8_t M;
-    uint8_t BL;
-    uint8_t BR;
-    uint8_t B;
+  uint8_t segmentToByte(uint8_t segment) {
     /*
+      6     -               
+      5   | | 4   
+      3     -          
+      2   | | 1
+      0     -   
 
-    T     -               
-    TL   | | TR   
-    M     -          
-    BL   | | BR
-    B     -   
-
-    x[2]  -               
-    x[0] | | x[4]   
-    x[3]  -          
-    x[1] | | x[7]
-    x[5]  -  
-            */
-
-  } Segment;
-  
-  uint8_t segmentToByte(Segment segment) {
+      x[2]  -               
+      x[0] | | x[4]   
+      x[3]  -          
+      x[1] | | x[7]
+      x[5]  -  
+    */
     uint8_t byte = 0;
-    if (segment.T ) byte |= 1 << 2;
-    if (segment.TL) byte |= 1 << 0;
-    if (segment.TR) byte |= 1 << 4;
-    if (segment.M ) byte |= 1 << 3;
-    if (segment.BL) byte |= 1 << 1;
-    if (segment.BR) byte |= 1 << 7;
-    if (segment.B ) byte |= 1 << 5;
+    uint8_t data_offset[7] = {2, 0, 4, 3, 1, 7, 5};
+    for (int i = 0; i < 7; i++) {
+      uint8_t segment_mask = 1 << (6 - i);
+      if (segment & segment_mask) {
+        byte |=  1 << data_offset[i];
+      }
+    }
     return byte;
   }
 
@@ -169,7 +289,7 @@ namespace UC121902_TNARX_A {
         }
       }
       
-      void set(const Segment segment, int position) {
+      void set(uint8_t segment, int position) {
         if (position < 0) position = 12 + position;
         if (position < 0 || position >= 12) return;
         if (position >= 6) position ++;
@@ -217,7 +337,7 @@ namespace UC121902_TNARX_A {
       }
       
   };
-
+  
   class Display {
     private:
       State* state;
@@ -332,255 +452,10 @@ namespace UC121902_TNARX_A {
       }
     
       void put(char character, int position) {
-        Segment segment;
-        uint8_t _ = 0;
-        switch (character) {
-          case ' ' : segment = { _,
-                                _,_,
-                                 _,
-                                _,_,
-                                 _}; break;
-          case 'B' :
-          case 'b' : segment = { _,
-                                1,_,
-                                 1,
-                                1,1,
-                                 1}; break;
-          case 'c' : segment = { _,
-                                _,_,
-                                 1,
-                                1,_,
-                                 1}; break;
-          case 'D' :
-          case 'd' : segment = { _,
-                                _,1,
-                                 1,
-                                1,1,
-                                 1}; break;
-          case 'e' :
-          case 'E' : segment = { 1,
-                                1,_,
-                                 1,
-                                1,_,
-                                 1}; break;
-          case 'f' :
-          case 'F' : segment = { 1,
-                                1,_,
-                                 1,
-                                1,_,
-                                 _}; break;
-          case 'p' :
-          case 'P' : segment = { 1,
-                                1,1,
-                                 1,
-                                1,_,
-                                 _}; break;
-          case 'Q' :
-          case 'q' : segment = { 1,
-                                1,1,
-                                 1,
-                                _,1,
-                                 _}; break;
-          case 'r' : segment = { _,
-                                _,_,
-                                 1,
-                                1,_,
-                                 _}; break;
-          case 'R' : segment = { 1,
-                                1,1,
-                                 1,
-                                1,1,
-                                 _}; break;
-          case 't' : segment = { _,
-                                1,_,
-                                 1,
-                                1,_,
-                                 _}; break;
-          case 'T' : segment = { 1,
-                                1,_,
-                                 _,
-                                1,_,
-                                 _}; break;
-          case 'v' :
-          case 'u' : segment = { _,
-                                _,_,
-                                 _,
-                                1,1,
-                                 1}; break;
-          case 'n' : segment = { _,
-                                _,_,
-                                 1,
-                                1,1,
-                                 _}; break;
-          case 'N' : segment = { 1,
-                                1,1,
-                                 _,
-                                1,1,
-                                 _}; break;
-          case 'V' :
-          case 'U' : segment = { _,
-                                1,1,
-                                 _,
-                                1,1,
-                                 1}; break;
-          case 'g' :
-          case 'G' : segment = { 1,
-                                1,_,
-                                 _,
-                                1,1,
-                                 1}; break;
-          case 'i' : segment = { _,
-                                _,_,
-                                 _,
-                                1,_,
-                                 _}; break;
-          case 'I' :
-          case 'l' : segment = { _,
-                                1,_,
-                                 _,
-                                1,_,
-                                 _}; break;
-          case 'L' : segment = { _,
-                                1,_,
-                                 _,
-                                1,_,
-                                 1}; break;
-          case 'a' :
-          case 'A' : segment = { 1,
-                                1,1,
-                                 1,
-                                1,1,
-                                 _}; break;
-          case 'x' :
-          case 'X' :
-          case 'H' : segment = { _,
-                                1,1,
-                                 1,
-                                1,1,
-                                 _}; break;
-          case 'o' : segment = { _,
-                                _,_,
-                                 1,
-                                1,1,
-                                 1}; break;
-          case 'O' :
-          case '0' : segment = { 1,
-                                1,1,
-                                 _,
-                                1,1,
-                                 1}; break;
-          case '!' :
-          case '1' : segment = { _,
-                                _,1,
-                                 _,
-                                _,1,
-                                 _}; break;
-          case 'z' :
-          case 'Z' :
-          case '2' : segment = { 1,
-                                _,1,
-                                 1,
-                                1,_,
-                                 1}; break;
-          case '3' : segment = { 1,
-                                _,1,
-                                 1,
-                                _,1,
-                                 1}; break;
-          case 'Y' :
-          case 'y' :
-          case '4' : segment = { _,
-                                1,1,
-                                 1,
-                                _,1,
-                                 _}; break;
-          case 'S' : 
-          case 's' :
-          case '5' : segment = { 1,
-                                1,_,
-                                 1,
-                                _,1,
-                                 1}; break;
-          case '6' : segment = { 1,
-                                1,_,
-                                 1,
-                                1,1,
-                                 1}; break;
-          case '7' : segment = { 1,
-                                _,1,
-                                 _,
-                                _,1,
-                                 _}; break;
-          case '8' : segment = { 1,
-                                1,1,
-                                 1,
-                                1,1,
-                                 1}; break;
-          case '9' : segment = { 1,
-                                1,1,
-                                 1,
-                                _,1,
-                                 1}; break;
-          case ')' : segment = { 1,
-                                _,1,
-                                 _,
-                                _,1,
-                                 1}; break;
-          case 'C' :
-          case '(' : segment = { 1,
-                                1,_,
-                                 _,
-                                1,_,
-                                 1}; break;
-          case '/' : segment = { _,
-                                _,1,
-                                 1,
-                                1,_,
-                                 _}; break;
-          case '\' : segment = { _,
-                                1,_,
-                                 1,
-                                _,1,
-                                 _}; break;
-          case '~' :
-          case '-' : segment = { _,
-                                _,_,
-                                 1,
-                                _,_,
-                                 _}; break;
-          case '.' :
-          case ',' :
-          case '_' : segment = { _,
-                                _,_,
-                                 _,
-                                _,_,
-                                 1}; break;
-          case '=' :
-          case ':' : segment = { _,
-                                _,_,
-                                 1,
-                                _,_,
-                                 1}; break;
-          case '\'':
-          case '"' :
-          case '^' : segment = { 1,
-                                _,_,
-                                 _,
-                                _,_,
-                                 _}; break;
-          case '%' : segment = { 1,
-                                _,_,
-                                 1,
-                                _,_,
-                                 1}; break;
-          case '?' : 
-          default  : segment = { 1,
-                                _,1,
-                                 1,
-                                1,_,
-                                 _}; break;
+        if (character > segment_lookup_table_size) {
+          character = '?';
         }
-        state->set(segment, position);
+        state->set(segment_lookup_table[character], position);
       }
       
   };
