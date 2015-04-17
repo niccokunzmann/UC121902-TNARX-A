@@ -483,11 +483,12 @@ namespace UC121902_TNARX_A {
       
       void putSegment(uint8_t byte, int position) {
         /* see the segment_lookup_table for examples 
-          byte     0b1000000  0b1110111  0b0101001
-          segment      _          _                        
-                                 | |       |_        
-                                 |_|        _    
+          byte     0b1000000  0b1110111  0b0101001  0b0010010
+          segment      _          _                       
+                                 | |       |_            |
+                                 |_|        _            |
                     
+          position is 0 (left) to 11 (right)
         */
         state->set(byte, position);
       }
