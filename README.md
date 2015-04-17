@@ -16,6 +16,7 @@ Connect to Arduino
 ![](Pollin/Beschriftet.jpg)
 
 CE, CK and DI are connected to pins on the Arduino. Default values are CE=2, CK=3, DI=4.
+Multiple displays can be connected. They can share CK and DI but CE should be on a different pin. 
 
 Hello World
 -----------

@@ -340,12 +340,6 @@ namespace UC121902_TNARX_A {
   class Display {
     private:
       State* state;
-      /*
-            g[4] = CHAN      n[4] = BATTERY_SECOND_HALF
-            g[5] = MEM       n[5] = BATTERY_FIRST_HALF
-            g[6] = /BELL    n[6] = PROG
-            g[7] = BELL     n[7] = SEC
-      */
       
     public: 
       Switch CHAN;
