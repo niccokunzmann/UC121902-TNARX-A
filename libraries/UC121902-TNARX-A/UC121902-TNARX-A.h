@@ -469,26 +469,26 @@ namespace UC121902_TNARX_A {
           M     -          
           BL   | | BR
           B     -   
-
-          x[2]  -               
-          x[0] | | x[4]   
-          x[3]  -          
-          x[1] | | x[7]
-          x[5]  -  
         */
         uint8_t byte = 0;
-        if (top        ) byte |= 1 << 2;
-        if (topLeft    ) byte |= 1 << 0;
+        if (top        ) byte |= 1 << 6;
+        if (topLeft    ) byte |= 1 << 5;
         if (topRight   ) byte |= 1 << 4;
         if (middle     ) byte |= 1 << 3;
-        if (bottomLeft ) byte |= 1 << 1;
-        if (bottomRight) byte |= 1 << 7;
-        if (bottom     ) byte |= 1 << 5;
+        if (bottomLeft ) byte |= 1 << 2;
+        if (bottomRight) byte |= 1 << 1;
+        if (bottom     ) byte |= 1 << 0;
         state->set(byte, position);
       }
       
       void putSegment(uint8_t byte, int position) {
-        /* see the lookup table */
+        /* see the segment_lookup_table for examples 
+          byte     0b1000000  0b1110111  0b0101001
+          segment      _          _                        
+                                 | |       |_        
+                                 |_|        _    
+                    
+        */
         state->set(byte, position);
       }
       
