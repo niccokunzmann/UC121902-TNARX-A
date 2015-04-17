@@ -457,6 +457,41 @@ namespace UC121902_TNARX_A {
         state->set(segment_lookup_table[character], position);
       }
       
+      void put(                    boolean top, 
+                  boolean topLeft,               boolean topRight,
+                                  boolean middle,
+               boolean bottomLeft,               boolean bottomRight,
+                                  boolean bottom, 
+               int position) {
+        /*
+          T     -               
+          TL   | | TR   
+          M     -          
+          BL   | | BR
+          B     -   
+
+          x[2]  -               
+          x[0] | | x[4]   
+          x[3]  -          
+          x[1] | | x[7]
+          x[5]  -  
+        */
+        uint8_t byte = 0;
+        if (top        ) byte |= 1 << 2;
+        if (topLeft    ) byte |= 1 << 0;
+        if (topRight   ) byte |= 1 << 4;
+        if (middle     ) byte |= 1 << 3;
+        if (bottomLeft ) byte |= 1 << 1;
+        if (bottomRight) byte |= 1 << 7;
+        if (bottom     ) byte |= 1 << 5;
+        state->set(byte, position);
+      }
+      
+      void putSegment(uint8_t byte, int position) {
+        /* see the lookup table */
+        state->set(byte, position);
+      }
+      
   };
 };
 
