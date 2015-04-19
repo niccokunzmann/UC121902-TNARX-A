@@ -39,15 +39,21 @@ Hello World
       count++;
     }
 
-Small Handbook
---------------
+How to Use The Library
+----------------------
+
+### Import
+
+One of the first lines in your Program is this:
+
+    #include "UC121902-TNARX-A.h"
 
 ###Initialization
 
     UC121902_TNARX_A::Display display(CE, CK, DI);
     UC121902_TNARX_A::Display display(); // CE == 2, CK == 3, DI == 4
 
-You can choose one of the lines. You can rename them to use multiple displays.
+You can choose one of the lines. You can `display` them to use multiple displays.
 
 ###Printing
 
@@ -68,22 +74,63 @@ You can also use `put` and `flush`:
 
 ### Symbols
 
-    display.CHAN
-    display.MEM
-    display.PROG
-    display.SEC
-    display.BELL
-    display.BELL_LINE
-    display.BATTERY_FIRST_HALF
-    display.BATTERY_SECOND_HALF
+These Symbols are present on the display:
 
-Each of them is a switch and has these methods:
+    display.chan
+    display.mem
+    display.prog
+    display.sec
+    display.bell
+    display.battery
 
-    display.BELL.turnOn();
-    display.BELL.turnOff();
-    display.BELL.isOn();
-    display.BELL.isOff();
-    display.BELL.toggle();
+They have these methods:
+
+    display.chan.turnOn();
+    display.chan.turnOff();
+    display.chan.isOn();
+    display.chan.isOff();
+    display.chan.toggle(); 
+
+    display.mem.turnOn();
+    display.mem.turnOff();
+    display.mem.isOn();
+    display.mem.isOff();
+    display.mem.toggle(); 
+
+    display.prog.turnOn();
+    display.prog.turnOff();
+    display.prog.isOn();
+    display.prog.isOff();
+    display.prog.toggle(); 
+
+    display.sec.turnOn();
+    display.sec.turnOff();
+    display.sec.isOn();
+    display.sec.isOff();
+    display.sec.toggle(); 
+
+    display.bell.turnOn();
+    display.bell.turnOff();
+    display.bell.isOn();
+    display.bell.isOff();
+    display.bell.toggle(); 
+    display.bell.mute();
+    display.bell.unmute();
+    display.bell.isMuted();
+    display.bell.isUnmuted();
+    display.bell.toggleMuted(); 
+
+    display.battery.empty();
+    display.battery.isEmpty();
+    display.battery.full();
+    display.battery.isFull();
+    display.battery.halfFull(); 
+    display.battery.isHalfFull(); 
+    display.battery.turnOn();
+    display.battery.turnOff();
+    display.battery.isOn();
+    display.battery.isOff();
+    display.battery.toggle(); 
 
 License
 -------
