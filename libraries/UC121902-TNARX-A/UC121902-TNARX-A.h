@@ -337,30 +337,117 @@ namespace UC121902_TNARX_A {
       
   };
   
+  class Bell {
+    public:
+      Switch muted;
+      Switch bell;
+      Bell(State* state = NULL) {
+        muted = Switch(state, 6, 6);
+        bell = Switch(state, 6, 7);
+      }
+      void turnOn() {
+        bell.turnOn();
+      }
+      void turnOff() {
+        bell.turnOff();
+      }
+      boolean isOn() {
+        return bell.isOn();
+      }
+      boolean isOff() {
+        return bell.isOff();
+      }
+      void toggle() {
+        bell.toggle();
+      }
+      void mute() {
+        muted.turnOn();
+      }
+      void unmute() {
+        muted.turnOff();
+      }
+      boolean isMuted() {
+        return muted.isOn();
+      }
+      boolean isUnmuted() {
+        return muted.isOff();
+      }
+      boolean toggleMuted() {
+        muted.toggle();
+      }
+  };
+  
+  class Battery {
+    public:
+      Switch  first_half;
+      Switch second_half;
+      Battery(State* state = NULL) {
+        first_half  = Switch(state, 13, 5);
+        second_half = Switch(state, 13, 4);
+      }
+      void empty() {
+        first_half.turnOff();
+        second_half.turnOff();
+      }
+      boolean isEmpty() {
+          return first_half.isOff() && second_half.isOff();
+      }
+      void full() {
+        first_half.turnOn();
+        second_half.turnOn();
+      }
+      boolean isFull() {
+          return first_half.isOn() && second_half.isOn();
+      }
+      void halfFull() {
+        first_half.turnOn();
+        second_half.turnOff();
+      }
+      boolean isHalfFull() {
+          return first_half.isOn() && second_half.isOff();
+      }
+      void turnOff() {
+        empty();
+      }
+      boolean isOff() {
+        return isEmpty();
+      }
+      void turnOn() {
+        full();
+      }
+      boolean isOn() {
+        return isFull();
+      }
+      void toggle() {
+        if (isOff()) {
+          turnOn();
+        } else {
+          turnOff();
+        }
+      }
+  };
+  
   class Display {
     private:
       State* state;
       
     public: 
-      Switch CHAN;
-      Switch MEM;
-      Switch BELL_LINE;
-      Switch BELL;
-      Switch BATTERY_SECOND_HALF;
-      Switch BATTERY_FIRST_HALF;
-      Switch PROG;
-      Switch SEC;
+      Switch chan;
+      Switch mem;
+      Switch prog;
+      Switch sec;
+      Bell bell;
+      Battery battery;
       
       Display(int CE_pin = 2, int CK_pin = 3, int DI_pin = 4) {
         state = new State(CE_pin, CK_pin, DI_pin);
-        CHAN = Switch(state, 6, 4);
-        MEM = Switch(state, 6, 5);
-        BELL_LINE = Switch(state, 6, 6);
-        BELL = Switch(state, 6, 7);
-        BATTERY_SECOND_HALF = Switch(state, 13, 4);
-        BATTERY_FIRST_HALF = Switch(state, 13, 5);
-        PROG = Switch(state, 13, 6);
-        SEC = Switch(state, 13, 7);
+        
+        chan = Switch(state, 6, 4);
+        mem = Switch(state, 6, 5);
+        prog = Switch(state, 13, 6);
+        sec = Switch(state, 13, 7);
+        bell = Bell(state);
+        battery = Battery(state);
       }
       ~Display() {
         delete(state);
