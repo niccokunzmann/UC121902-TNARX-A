@@ -53,7 +53,7 @@ One of the first lines in your Program is this:
     UC121902_TNARX_A::Display display(CE, CK, DI);
     UC121902_TNARX_A::Display display(); // CE == 2, CK == 3, DI == 4
 
-You can choose one of the lines. You can `display` them to use multiple displays.
+You can choose one of the lines. You can rename `display` to use multiple displays.
 
 ###Printing
 
