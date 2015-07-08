@@ -136,3 +136,9 @@ License
 -------
 
 MIT License, see the License file. Subfolders (Pollin) may have different licenses.
+
+Related Work
+------------
+
+- [Library by Alex](https://www.mikrocontroller.net/topic/318926#3889778)
+- [steppi](http://stepp-ke.de/tag/uc121902-tnarx-a/)
