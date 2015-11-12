@@ -1,3 +1,13 @@
+/* UC121902-TNARX-A
+ *
+ * The display: http://www.pollin.de/shop/dt/MzE0OTc4OTk-/Bauelemente_Bauteile/Aktive_Bauelemente/Displays/LCD_Modul_SAMSUNG_UC121902_TNARX_A.html
+ * How to install: http://www.arduino.cc/en/Guide/Libraries
+ *
+ * License: MIT Copyright (c) 2015 Nicco Kunzmann
+ *
+ * The Repository: https://github.com/niccokunzmann/UC121902-TNARX-A
+ *
+ */
 
 #ifndef UC121902_TNARX_A_hpp
 #define UC121902_TNARX_A_hpp
