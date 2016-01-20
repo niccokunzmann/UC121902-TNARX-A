@@ -1,0 +1,87 @@
+#######################################
+# Syntax Coloring Map For UC121902-TNARX-A
+####################################### 
+# Class
+#######################################
+
+UC121902_TNARX_A 	KEYWORD1
+State            	KEYWORD1
+Switch           	KEYWORD1
+Bell             	KEYWORD1
+Battery          	KEYWORD1
+Display          	KEYWORD1
+
+#######################################
+# Methods and Functions 
+#######################################	
+
+# State
+m_data        	KEYWORD2
+writeOnChange 	KEYWORD2
+started       	KEYWORD2
+begin	        	KEYWORD2
+end	          	KEYWORD2
+write_bits	  	KEYWORD2
+flush	        	KEYWORD2
+changed	      	KEYWORD2
+erase	        	KEYWORD2
+eraseNumbers  	KEYWORD2
+set	          	KEYWORD2
+
+# Switch
+turnOn     	KEYWORD2
+turnOff    	KEYWORD2
+isOn       	KEYWORD2
+isOff      	KEYWORD2
+toggle     	KEYWORD2
+
+# Bell
+turnOn       	KEYWORD2
+turnOff      	KEYWORD2
+isOn         	KEYWORD2
+isOff        	KEYWORD2
+toggle       	KEYWORD2
+mute         	KEYWORD2
+unmute       	KEYWORD2
+isMuted      	KEYWORD2
+isUnmuted   	KEYWORD2
+toggleMuted 	KEYWORD2
+
+# Battery
+empty      	KEYWORD2
+isEmpty    	KEYWORD2
+full       	KEYWORD2
+isFull     	KEYWORD2
+halfFull   	KEYWORD2
+isHalfFull 	KEYWORD2
+turnOff    	KEYWORD2
+isOff      	KEYWORD2
+isOn       	KEYWORD2
+toggle     	KEYWORD2
+
+# Display
+chan          	KEYWORD2
+mem           	KEYWORD2
+prog          	KEYWORD2
+sec           	KEYWORD2
+bell          	KEYWORD2
+battery        	KEYWORD2
+writeOnChange 	KEYWORD2
+begin         	KEYWORD2
+end           	KEYWORD2
+flush         	KEYWORD2
+turnOff       	KEYWORD2
+eraseAll      	KEYWORD2
+eraseNumbers  	KEYWORD2
+eraseText     	KEYWORD2
+print         	KEYWORD2
+put           	KEYWORD2
+putSegment    	KEYWORD2
+
+#######################################
+# Constants
+#######################################
+ 
+DP 	LITERAL1
+DQ 	LITERAL1
+DR 	LITERAL1
