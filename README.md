@@ -48,14 +48,14 @@ One of the first lines in your Program is this:
 
     #include "UC121902-TNARX-A.h"
 
-###Initialization
+### Initialization
 
     UC121902_TNARX_A::Display display(CE, CK, DI);
     UC121902_TNARX_A::Display display(); // CE == 2, CK == 3, DI == 4
 
 You can choose one of the lines. You can rename `display` to use multiple displays.
 
-###Printing
+### Printing
 
     display.print("String");
 	display.print(1234567890L);
