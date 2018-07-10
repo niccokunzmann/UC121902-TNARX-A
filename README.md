@@ -8,7 +8,8 @@ A Library to control the Samsumg UC121902-TNARX-A LCD module with the Arduino. Y
 Installation
 ------------
 
-See [http://www.arduino.cc/en/Guide/Libraries](http://www.arduino.cc/en/Guide/Libraries) chapter "Manual installation" for installation instructions.
+1. Download the latest release of the library from: https://github.com/niccokunzmann/UC121902-TNARX-A/releases
+2. (In the Arduino IDE) Sketch > Include Library > Add .ZIP Library > select the downloaded file > Open
 
 Connect to Arduino
 ------------------
