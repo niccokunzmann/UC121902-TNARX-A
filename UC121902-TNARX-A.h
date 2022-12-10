@@ -334,7 +334,7 @@ namespace UC121902_TNARX_A {
       }
       
       boolean isOff() {
-        !isOn();
+        return !isOn();
       }
       
       void toggle() {
@@ -382,7 +382,7 @@ namespace UC121902_TNARX_A {
       boolean isUnmuted() {
         return muted.isOff();
       }
-      boolean toggleMuted() {
+      void toggleMuted() {
         muted.toggle();
       }
   };
@@ -523,7 +523,7 @@ namespace UC121902_TNARX_A {
       }
        
       void put(const String string) {
-        for (int i = 0; (i < string.length() && i < 12); i++) {
+        for (unsigned char i = 0; (i < string.length() && i < 12); i++) {
           put(string[i], i);
         }      
       }
@@ -545,7 +545,7 @@ namespace UC121902_TNARX_A {
         if (character > segment_lookup_table_size) {
           character = '?';
         }
-        state->set(segment_lookup_table[character], position);
+        state->set(segment_lookup_table[(unsigned char)character], position);
       }
       
       void put(                    boolean top, 
