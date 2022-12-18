@@ -12,6 +12,9 @@
 #ifndef UC121902_TNARX_A_hpp
 #define UC121902_TNARX_A_hpp
 
+// save space, by only supporting numbers and a few other characters (sign, etc.)
+//#define UC121902_TNARX_A_ONLY_USE_NUMBERS
+
 #include "Arduino.h"
 
 namespace UC121902_TNARX_A {
@@ -20,8 +23,13 @@ namespace UC121902_TNARX_A {
   uint8_t DQ = 2;
   uint8_t DR = 1;
 
+ #ifndef UC121902_TNARX_A_ONLY_USE_NUMBERS
   const uint8_t segment_lookup_table_size = 127;
-  uint8_t segment_lookup_table[segment_lookup_table_size] = {
+ #else
+  const uint8_t segment_lookup_table_size = 27;
+ #endif
+  const uint8_t PROGMEM segment_lookup_table[segment_lookup_table_size] = {
+ #ifndef UC121902_TNARX_A_ONLY_USE_NUMBERS
     0b1011100 /* '\x00' */,
     0b1011100 /* '\x01' */,
     0b1011100 /* '\x02' */,
@@ -54,6 +62,7 @@ namespace UC121902_TNARX_A {
     0b1011100 /* '\x1d' */,
     0b1011100 /* '\x1e' */,
     0b1011100 /* '\x1f' */,
+ #endif
     0b0000000 /*  ' '   */,
     0b0010010 /*  '!'   */,
     0b0110000 /*  '"'   */,
@@ -81,6 +90,7 @@ namespace UC121902_TNARX_A {
     0b1111111 /*  '8'   */,
     0b1111011 /*  '9'   */,
     0b0001001 /*  ':'   */,
+ #ifndef UC121902_TNARX_A_ONLY_USE_NUMBERS
     0b0001010 /*  ';'   */,
     0b1101000 /*  '<'   */,
     0b0001001 /*  '='   */,
@@ -149,6 +159,7 @@ namespace UC121902_TNARX_A {
     0b0010010 /*  '|'   */,
     0b1010011 /*  '}'   */,
     0b0001000 /*  '~'   */,
+ #endif
   };
   
   uint8_t segmentToByte(uint8_t segment) {
@@ -527,7 +538,7 @@ namespace UC121902_TNARX_A {
           put(string[i], i);
         }      
       }
-      
+            
       void put(int32_t number) {
         boolean sign = number < 0;
         number = abs(number);
@@ -542,10 +553,19 @@ namespace UC121902_TNARX_A {
       }
     
       void put(char character, int position) {
+       #ifndef UC121902_TNARX_A_ONLY_USE_NUMBERS
         if (character > segment_lookup_table_size) {
           character = '?';
+       #else
+        if (character -32 > segment_lookup_table_size) {
+          character = '.';
+       #endif
         }
-        state->set(segment_lookup_table[(unsigned char)character], position);
+       #ifndef UC121902_TNARX_A_ONLY_USE_NUMBERS
+        state->set(pgm_read_byte(&segment_lookup_table[(unsigned char)character]), position);
+       #else
+        state->set(pgm_read_byte(&segment_lookup_table[(unsigned char)character -32]), position);
+       #endif
       }
       
       void put(                    boolean top, 
